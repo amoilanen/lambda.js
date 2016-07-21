@@ -1,0 +1,43 @@
+{
+  "name": "lambda.js",
+  "version": "0.0.1",
+  "description": "Lambda calculus interpreter, implementation of a minimal functional language",
+  "main": "lambda.js",
+  "scripts": {
+    "build": "babel lib -d dist",
+    "test": "karma start karma.conf.js",
+    "test:tdd": "karma start karma.conf.js --tdd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antivanov/lambda.js.git"
+  },
+  "keywords": [
+    "interpreter",
+    "lambda",
+    "functional",
+    "lambda",
+    "calculus",
+    "functional",
+    "programming",
+    "fp"
+  ],
+  "author": "Anton Ivanov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antivanov/lambda.js/issues"
+  },
+  "homepage": "https://github.com/antivanov/lambda.js#readme",
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-umd": "^6.8.*",
+    "babel-preset-es2015": "^6.9.*",
+    "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.1",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "karma-spec-reporter": "0.0.26"
+  }
+}
