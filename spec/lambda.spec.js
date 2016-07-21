@@ -39,5 +39,6 @@ describe('lambda calculus', () => {
     });
   });
 
-  //TODO: Several letter variables?
+  //TODO: Several letter variables like abc?
+  //TODO: Do not require parenthesis, set them up automatically
 });
