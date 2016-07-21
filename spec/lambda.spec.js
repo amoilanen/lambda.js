@@ -19,4 +19,25 @@ describe('lambda calculus', () => {
       expect(lambda.eval('(λx.y)')).toEqual('(λx.y)');
     });
   });
+
+  describe('application', () => {
+
+    it('should evaluate', () => {
+      expect(lambda.eval('(λx.xx)1')).toEqual('11');
+    });
+
+    xdescribe('several applications', () => {
+    });
+
+    xdescribe('nested applications', () => {
+    });
+
+    xdescribe('normal form still contains applications', () => {
+    });
+
+    xdescribe('body contains functions with bound variables with the same name', () => {
+    });
+  });
+
+  //TODO: Several letter variables?
 });
