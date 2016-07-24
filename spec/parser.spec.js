@@ -14,6 +14,10 @@ describe('parser', () => {
     
   });
 
+  xit('should parse nested functions', () => {
+    
+  });
+
   xit('should parse nested expression', () => {
     
   });
