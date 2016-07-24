@@ -1,4 +1,4 @@
-import lambda from './lib/lambda'
+import { lambda } from './lib/lambda'
 
 describe('lambda calculus', () => {
 
@@ -38,7 +38,4 @@ describe('lambda calculus', () => {
     xdescribe('body contains functions with bound variables with the same name', () => {
     });
   });
-
-  //TODO: Several letter variables like abc?
-  //TODO: Do not require parenthesis, set them up automatically
 });
