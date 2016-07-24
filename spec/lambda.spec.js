@@ -2,41 +2,28 @@ import { lambda } from './lib/lambda'
 
 describe('lambda calculus', () => {
 
-  it('should be defined', () => {
-    expect(lambda).toBeDefined();
+  it('should evaluate variable to self', () => {
+    expect(lambda.eval('x')).toEqual('x');
   });
 
-  describe('variable', () => {
-
-    it('should evaluate to self', () => {
-      expect(lambda.eval('x')).toEqual('x');
-    });
+  it('should evaluate function to self', () => {
+    expect(lambda.eval('(λx.y)')).toEqual('(λx.y)');
   });
 
-  describe('function', () => {
-
-    it('should evaluate to self', () => {
-      expect(lambda.eval('(λx.y)')).toEqual('(λx.y)');
-    });
+  it('should evaluate application', () => {
+    expect(lambda.eval('(λx.xx)1')).toEqual('11');
   });
 
-  describe('application', () => {
+  xdescribe('several applications', () => {
+  });
 
-    it('should evaluate', () => {
-      expect(lambda.eval('(λx.xx)1')).toEqual('11');
-    });
+  xdescribe('nested applications', () => {
+  });
 
-    xdescribe('several applications', () => {
-    });
+  xdescribe('normal form still contains applications', () => {
+  });
 
-    xdescribe('nested applications', () => {
-    });
-
-    xdescribe('normal form still contains applications', () => {
-    });
-
-    xdescribe('body contains functions with bound variables with the same name', () => {
-    });
+  xdescribe('body contains functions with bound variables with the same name', () => {
   });
 
   //(λx.(λy.(λz.zyx))123 -> 321
