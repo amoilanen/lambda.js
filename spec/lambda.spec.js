@@ -38,4 +38,6 @@ describe('lambda calculus', () => {
     xdescribe('body contains functions with bound variables with the same name', () => {
     });
   });
+
+  //(λx.(λy.(λz.zyx))123 -> 321
 });
