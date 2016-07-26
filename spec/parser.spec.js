@@ -52,7 +52,10 @@ describe('parser', () => {
     });
   });
 
-  //TODO: Empty expression
+  it('should parse empty expression', () => {
+    expect(parser.parse('')).toEqual(null);
+  });
+
   //TODO: 'λ', 'λx', 'λx.' is an invalid expression
   //TODO: '1' is and invalid expression
   //TODO: '[x]' is an invalid expression, unknown symbol
