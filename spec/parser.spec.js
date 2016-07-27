@@ -58,7 +58,7 @@ describe('parser', () => {
       ['λ', 'Incomplete function definition at position 1'],
       ['λx', 'Incomplete function definition at position 2'],
       ['λx.', 'Empty expression is not expected at position 3'],
-      //TODO: Incomplete function definition in the middle of some expression
+      ['(λx.)z', 'Empty expression is not expected at position 4'],
       /*['1', 'Unknown symbol \'1\' at position 0'],
       ['[x]', 'Unknown symbol \'[\' at position 0'],
       ['xy?', 'Unknown symbol \'?\' at position 2']*/
@@ -74,21 +74,13 @@ describe('parser', () => {
     });
   });
 
+  //(λx.x)z
   //(λx.(λy.(λz.zyx)))
+  //(λx.x(λy.yxz))
+  //(λf.(λx.f(xx))(λx.f(xx)))
   xit('should parse nested functions 1', () => {
     
   });
 
-  //(λx.x(λy.yxz))
-  xit('should parse nested expression 2', () => {
-    
-  });
-
-  //λf.(λx.f(xx))(λx.f(xx))
-  xit('should parse Y combinator', () => {
-    
-  });
-
-  //TODO: Several letter variables like abc?
   //TODO: Do not require parenthesis, set them up automatically
 });
