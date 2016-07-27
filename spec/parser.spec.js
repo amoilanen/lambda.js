@@ -52,13 +52,27 @@ describe('parser', () => {
     });
   });
 
-  it('should parse empty expression', () => {
-    expect(parser.parse('')).toEqual(null);
+  describe('invalid expressions', () => {
+    [
+      ['', 'Empty expression is not expected at position 0'],
+      ['λ', 'Incomplete function definition at position 1'],
+      ['λx', 'Incomplete function definition at position 2'],
+      ['λx.', 'Empty expression is not expected at position 3'],
+      //TODO: Incomplete function definition in the middle of some expression
+      /*['1', 'Unknown symbol \'1\' at position 0'],
+      ['[x]', 'Unknown symbol \'[\' at position 0'],
+      ['xy?', 'Unknown symbol \'?\' at position 2']*/
+    ].forEach(([expr, errorMessage]) => {
+      it(`should throw error when parsing ${expr}`, () => {
+        try {
+          parser.parse(expr);
+          throw `Should have reported ${errorMessage}`;
+        } catch (e) {
+          expect(e).toEqual(errorMessage);
+        }
+      });
+    });
   });
-
-  //TODO: 'λ', 'λx', 'λx.' is an invalid expression
-  //TODO: '1' is and invalid expression
-  //TODO: '[x]' is an invalid expression, unknown symbol
 
   //(λx.(λy.(λz.zyx)))
   xit('should parse nested functions 1', () => {
