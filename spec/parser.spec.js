@@ -59,9 +59,9 @@ describe('parser', () => {
       ['λx', 'Incomplete function definition at position 2'],
       ['λx.', 'Empty expression is not expected at position 3'],
       ['(λx.)z', 'Empty expression is not expected at position 4'],
-      /*['1', 'Unknown symbol \'1\' at position 0'],
+      ['1', 'Unknown symbol \'1\' at position 0'],
       ['[x]', 'Unknown symbol \'[\' at position 0'],
-      ['xy?', 'Unknown symbol \'?\' at position 2']*/
+      ['xy?', 'Unknown symbol \'?\' at position 2']
     ].forEach(([expr, errorMessage]) => {
       it(`should throw error when parsing ${expr}`, () => {
         try {
@@ -83,4 +83,6 @@ describe('parser', () => {
   });
 
   //TODO: Do not require parenthesis, set them up automatically
+  //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
+  //TODO: Shorthand for nested lambdas, for example λx.(λy.yx) is the same as λxy.yx
 });

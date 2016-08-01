@@ -3,6 +3,8 @@ logs
 *.log
 npm-debug.log*
 
+# Visual Studio Code settings
+.vscode
 
 # Built
 dist
