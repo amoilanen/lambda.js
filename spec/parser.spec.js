@@ -21,7 +21,6 @@ describe('parser', () => {
   });
 
   describe('parentheses', () => {
-
     [
       ['(x)', new Variable('x')],
       ['(λx.x)', new Func('x', new Variable('x'))],
@@ -74,15 +73,22 @@ describe('parser', () => {
     });
   });
 
-  //(λx.x)z
-  //(λx.(λy.(λz.zyx)))
-  //(λx.x(λy.yxz))
-  //(λf.(λx.f(xx))(λx.f(xx)))
-  xit('should parse nested functions 1', () => {
-    
+  describe('nested expressions', () => {
+    [
+      ['((λx.x)z)', new Application(new Func('x', new Variable('x')), new Variable('z'))],
+      //(λx.(λy.(λz.zyx)))
+      //(λx.x(λy.yxz))
+      //(λf.(λx.f(xx))(λx.f(xx)))
+    ].forEach(([expr, expected]) => {
+      it(`should parse ${expr}`, () => {
+        expect(parser.parse(expr)).toEqual(expected);
+      });
+    });
   });
 
-  //TODO: Do not require parenthesis, set them up automatically
+  //TODO: Do not require parenthesis, set them up automatically:
+  //(λx.x)z
+  //two different rules: parenthesis for application are left associative, for functions right
   //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
   //TODO: Shorthand for nested lambdas, for example λx.(λy.yx) is the same as λxy.yx
 });
