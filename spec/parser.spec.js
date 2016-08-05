@@ -76,6 +76,7 @@ describe('parser', () => {
   describe('nested expressions', () => {
     [
       ['((λx.x)z)', new Application(new Func('x', new Variable('x')), new Variable('z'))],
+      //((λx.(λy.y))z)
       //(λx.(λy.(λz.zyx)))
       //(λx.x(λy.yxz))
       //(λf.(λx.f(xx))(λx.f(xx)))
