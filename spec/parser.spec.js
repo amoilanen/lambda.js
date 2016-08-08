@@ -90,11 +90,61 @@ describe('parser', () => {
           new Variable('z')
         )
       ],
-      //(λx.(λy.(λz.zyx)))
+      ['(λx.(λy.(λz.((zy)x))))',
+        new Func('x',
+          new Func('y',
+            new Func('z', 
+              new Application(
+                new Application(
+                  new Variable('z'),
+                  new Variable('y')
+                ),
+                new Variable('x')
+              )
+            )
+          )
+        )
+      ],
+      ['(λx.(xy)z)',
+        new Func('x',
+          new Application(
+            new Application(
+              new Variable('x'),
+              new Variable('y')
+            ),
+            new Variable('z')
+          )
+        ),
+        'assumes λ body to include all the terms until closing bracket'
+      ],
+      ['((λx.(xy))z)',
+        new Application(
+          new Func('x',
+            new Application(
+              new Variable('x'),
+              new Variable('y')
+            )
+          ),
+          new Variable('z')
+        ),
+        'assumes λ body to not include the terms after the closing bracket'
+      ],
+      ['(λx.((xy)z))',
+        new Func('x',
+          new Application(
+            new Application(
+              new Variable('x'),
+              new Variable('y')
+            ),
+            new Variable('z')
+          )
+        ),
+        'assumes λ body to include all the terms until closing bracket'
+      ],
       //(λx.x(λy.yxz))
       //(λf.(λx.f(xx))(λx.f(xx)))
-    ].forEach(([expr, expected]) => {
-      it(`should parse ${expr}`, () => {
+    ].forEach(([expr, expected, comment = '']) => {
+      it(`should parse ${expr} ${comment}`, () => {
         expect(parser.parse(expr)).toEqual(expected);
       });
     });
