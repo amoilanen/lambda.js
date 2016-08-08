@@ -141,7 +141,32 @@ describe('parser', () => {
         ),
         'assumes λ body to include all the terms until closing bracket'
       ],
-      //(λx.x(λy.yxz))
+      ['(λx.x(λy.(yx)z))',
+        new Func('x',
+          new Application(
+            new Variable('x'),
+            new Func('y',
+              new Application(
+                new Application(
+                  new Variable('y'),
+                  new Variable('x')
+                ),
+                new Variable('z')
+              )
+            )
+          )
+        )
+      ],
+      ['yxz',
+        new Application(
+          new Application(
+            new Variable('y'),
+            new Variable('x')
+          ),
+          new Variable('z')
+        ),
+        'associates applications to the left'
+      ]
       //(λf.(λx.f(xx))(λx.f(xx)))
     ].forEach(([expr, expected, comment = '']) => {
       it(`should parse ${expr} ${comment}`, () => {
