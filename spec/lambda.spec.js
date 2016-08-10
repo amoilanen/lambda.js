@@ -28,3 +28,5 @@ describe('lambda calculus', () => {
 
   //(λx.(λy.(λz.zyx))123 -> 321
 });
+
+//TODO: Add option to generate JavaScript from the parsed lambda expression tree, i.e. compile to JavaScript, not just interpret

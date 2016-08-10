@@ -8,6 +8,13 @@ describe('parser', () => {
     parser = new Parser();
   });
 
+  const test = (fixtures) =>
+    fixtures.forEach(([expr, expected, comment = '']) => {
+      it(`should parse ${expr} ${comment}`, () => {
+        expect(parser.parse(expr)).toEqual(expected);
+      });
+    })
+
   it('should parse variable', () => {
     expect(parser.parse('x')).toEqual(new Variable('x'));
   });
@@ -21,16 +28,12 @@ describe('parser', () => {
   });
 
   describe('parentheses', () => {
-    [
+    test([
       ['(x)', new Variable('x')],
       ['(λx.x)', new Func('x', new Variable('x'))],
       ['(xy)', new Application(new Variable('x'), new Variable('y'))],
       ['(((x((y)))))', new Application(new Variable('x'), new Variable('y'))]
-    ].forEach(([expr, result]) => {
-      it(`should parse ${expr}`, () => {
-        expect(parser.parse(expr)).toEqual(result);
-      });
-    });
+    ]);
 
     it('should throw an error if unmatched closing parentheses', () => {
       try {
@@ -74,7 +77,7 @@ describe('parser', () => {
   });
 
   describe('nested expressions', () => {
-    [
+    test([
       ['((λx.x)z)',
         new Application(
           new Func('x', new Variable('x')),
@@ -157,16 +160,6 @@ describe('parser', () => {
           )
         )
       ],
-      ['yxz',
-        new Application(
-          new Variable('y'),
-            new Application(
-              new Variable('x'),
-              new Variable('z')
-            )
-        ),
-        'associates applications to the right'
-      ],
       ['(λf.(λx.f(xx))(λx.f(xx)))',
         new Func('f',
           new Application(
@@ -192,10 +185,68 @@ describe('parser', () => {
         ),
         'Y-combinator'
       ]
-    ].forEach(([expr, expected, comment = '']) => {
-      it(`should parse ${expr} ${comment}`, () => {
-        expect(parser.parse(expr)).toEqual(expected);
-      });
+    ]);
+  });
+
+  describe('associativity', () => {
+    describe('applications', () => {
+      test([
+        ['yxz',
+          new Application(
+            new Application(
+              new Variable('y'),
+              new Variable('x')
+            ),
+            new Variable('z')
+          ),
+          'associates applications to the left without parenthesis'
+        ],
+        ['(y(xz))',
+          new Application(
+            new Variable('y'),
+            new Application(
+              new Variable('x'),
+              new Variable('z')
+            )
+          ),
+          'follows parenthesis for right association'
+        ],
+        ['((yx)z)',
+          new Application(
+            new Application(
+              new Variable('y'),
+              new Variable('x')
+            ),
+            new Variable('z')
+          ),
+          'follows parenthesis for left association'
+        ]
+      ]);
+    });
+
+    describe('functions', () => {
+      test([
+        ['λx.λy.λz.f',
+          new Func('x',
+            new Func('y',
+              new Func('z',
+                new Variable('f')
+              )
+            )
+          ),
+          'associates applications to the right without parenthesis'
+        ],
+        ['(λx.(λy.(λz.f)))',
+          new Func('x',
+            new Func('y',
+              new Func('z',
+                new Variable('f')
+              )
+            )
+          ),
+          'follows parenthesis for right association'
+        ]
+      ]);
     });
   });
 
