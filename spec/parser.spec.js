@@ -159,15 +159,39 @@ describe('parser', () => {
       ],
       ['yxz',
         new Application(
-          new Application(
-            new Variable('y'),
-            new Variable('x')
-          ),
-          new Variable('z')
+          new Variable('y'),
+            new Application(
+              new Variable('x'),
+              new Variable('z')
+            )
         ),
-        'associates applications to the left'
+        'associates applications to the right'
+      ],
+      ['(λf.(λx.f(xx))(λx.f(xx)))',
+        new Func('f',
+          new Application(
+            new Func('x',
+              new Application(
+                new Variable('f'),
+                new Application(
+                  new Variable('x'),
+                  new Variable('x')
+                )
+              )
+            ),
+            new Func('x',
+              new Application(
+                new Variable('f'),
+                new Application(
+                  new Variable('x'),
+                  new Variable('x')
+                )
+              )
+            )
+          )
+        ),
+        'Y-combinator'
       ]
-      //(λf.(λx.f(xx))(λx.f(xx)))
     ].forEach(([expr, expected, comment = '']) => {
       it(`should parse ${expr} ${comment}`, () => {
         expect(parser.parse(expr)).toEqual(expected);
@@ -178,6 +202,7 @@ describe('parser', () => {
   //TODO: Do not require parenthesis, set them up automatically:
   //(λx.x)z
   //two different rules: parenthesis for application are left associative, for functions right
+  //TODO: Associate applications to the left, not to the right (natural order when parsing from the left)?
   //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
   //TODO: Shorthand for nested lambdas, for example λx.(λy.yx) is the same as λxy.yx
 });
