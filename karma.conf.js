@@ -18,13 +18,7 @@ module.exports = function(config) {
       options: {
         presets: ['es2015'],
         sourceMap: 'inline'
-      },
-      /*filename: function (file) {
-        return file.originalPath.replace(/\.js$/, '.es5.js');
-      },
-      sourceFileName: function (file) {
-        return file.originalPath;
-      }*/
+      }
     }
   };
 

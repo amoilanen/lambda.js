@@ -199,7 +199,7 @@ describe('parser', () => {
             ),
             new Variable('z')
           ),
-          'associates applications to the left without parenthesis'
+          'associates applications to the left without parentheses'
         ],
         ['(y(xz))',
           new Application(
@@ -209,7 +209,7 @@ describe('parser', () => {
               new Variable('z')
             )
           ),
-          'follows parenthesis for right association'
+          'follows parentheses for right association'
         ],
         ['((yx)z)',
           new Application(
@@ -219,7 +219,30 @@ describe('parser', () => {
             ),
             new Variable('z')
           ),
-          'follows parenthesis for left association'
+          'follows parentheses for left association'
+        ],
+        ['(y(x)z)',
+          new Application(
+            new Application(
+              new Variable('y'),
+              new Variable('x')
+            ),
+            new Variable('z')
+          ),
+          'associates parentheses to the left respecting present parentheses'
+        ],
+        ['(y(xz)h)',
+          new Application(
+            new Application(
+              new Variable('y'),
+              new Application(
+                new Variable('x'),
+                new Variable('z')
+              )
+            ),
+            new Variable('h')
+          ),
+          'associates parentheses to the left respecting present parentheses arround another application'
         ]
       ]);
     });
