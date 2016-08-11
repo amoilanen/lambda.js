@@ -189,15 +189,19 @@ describe('parser', () => {
   });
 
   describe('associativity', () => {
+
+    /*
+     * Applications associate to the right in order to simplify the used grammar/parser implementation
+     */
     describe('applications', () => {
       test([
         ['yxz',
           new Application(
+            new Variable('y'),
             new Application(
-              new Variable('y'),
-              new Variable('x')
-            ),
-            new Variable('z')
+              new Variable('x'),
+              new Variable('z')
+            )
           ),
           'associates applications to the left without parentheses'
         ],
@@ -223,24 +227,24 @@ describe('parser', () => {
         ],
         ['(y(x)z)',
           new Application(
+            new Variable('y'),
             new Application(
-              new Variable('y'),
-              new Variable('x')
-            ),
-            new Variable('z')
+              new Variable('x'),
+              new Variable('z')
+            )
           ),
-          'associates parentheses to the left respecting present parentheses'
+          'associates parentheses to the right respecting present parentheses'
         ],
         ['(y(xz)h)',
           new Application(
+            new Variable('y'),
             new Application(
-              new Variable('y'),
               new Application(
                 new Variable('x'),
                 new Variable('z')
-              )
-            ),
-            new Variable('h')
+              ),
+              new Variable('h')
+            )
           ),
           'associates parentheses to the left respecting present parentheses arround another application'
         ]
@@ -273,10 +277,6 @@ describe('parser', () => {
     });
   });
 
-  //TODO: Do not require parenthesis, set them up automatically:
-  //(λx.x)z
-  //two different rules: parenthesis for application are left associative, for functions right
-  //TODO: Associate applications to the left, not to the right (natural order when parsing from the left)?
   //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
   //TODO: Shorthand for nested lambdas, for example λx.(λy.yx) is the same as λxy.yx
 });
