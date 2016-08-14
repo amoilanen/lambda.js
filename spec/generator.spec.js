@@ -1,0 +1,1 @@
+//Spec for JavaScript code generator
