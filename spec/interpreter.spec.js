@@ -11,7 +11,7 @@ describe('interpreter', () => {
   const test = (fixtures) =>
     fixtures.forEach(([expr, expected, comment = '']) => {
       it(`should interpret ${expr} ${comment}`, () => {
-        expect(parser.parse(expr)).toEqual(expected);
+        expect(interpreter.eval(expr).toString()).toEqual(expected);
       });
     })
 
@@ -34,7 +34,7 @@ describe('interpreter', () => {
           new Variable('x'),
           new Variable('y')
         ),
-        'xy', 'application'
+        '(xy)', 'application'
       ]
     ]);
   });
