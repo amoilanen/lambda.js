@@ -131,12 +131,18 @@ describe('interpreter', () => {
         '(λy.(λz.(λt.g)))', 'body is a deeply nested expression, argument a function'
       ],
       //(λx.z(λy.h(λz.x)))(λt.g) not just nested functions
+      //(λx.x)(λx.x) reduces to itself
     ]);
   });
 
   //TODO: Several β-reductions: (λx.xy)(λt.t) for example
   //TODO: Several pathes to do β-reduction
+  //TODO: (λx.xx)(λx.xx) reduces to itself, does not have a normal form
+  //TODO: (λx.(λy.x))(λx.x)(λx.xx) reduces in two reductions to (λx.x)
+  //TODO: (λx.(λy.x))((λx.xx)(λx.xx))(λx.x) does not reduce
+  //TODO: (λx.(λy.x))(λx.x)((λx.xx)(λx.xx)) reduces to (λx.x), for this left-most redex should be reduced first, Lisp works otherwise, infinite cycle in this case
   //TODO: Implementation detail: left-most leaf expression is evaluated first?
+
   //TODO: Also store the history of evaluation
   //TODO: Variable name overshadows a variable from an enclosing context: α-reduction is needed to rename the variables
   //TODO: Implementation detail: α-reduction to avoid same variable name
