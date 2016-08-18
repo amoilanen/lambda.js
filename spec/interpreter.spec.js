@@ -130,14 +130,44 @@ describe('interpreter', () => {
         ),
         '(λy.(λz.(λt.g)))', 'body is a deeply nested expression, argument a function'
       ],
-      //(λx.z(λy.h(λz.x)))(λt.g) not just nested functions
-      //(λx.x)(λx.x) reduces to itself
+      [
+        new Application(
+          new Func('x',
+            new Application(
+              new Variable('z'),
+              new Func('y',
+                new Application(
+                  new Variable('h'),
+                  new Func('z',
+                    new Variable('x')
+                  )
+                )
+              )
+            )
+          ),
+          new Func('t',
+            new Variable('g')
+          )
+        ),
+        '(z(λy.(h(λz.(λt.g)))))', 'body contains nested applications, argument a function'
+      ],
+      [
+        new Application(
+          new Func('x',
+            new Variable('x')
+          ),
+          new Func('x',
+            new Variable('x')
+          )
+        ),
+        '(λx.x)', 'identity applied to identity reduces to identity'
+      ]
     ]);
   });
 
   //TODO: Several β-reductions: (λx.xy)(λt.t) for example
   //TODO: Several pathes to do β-reduction
-  //TODO: (λx.xx)(λx.xx) reduces to itself, does not have a normal form
+  //TODO: (λx.xx)(λx.xx) reduces to itself, does not have a normal form, cycle, how to break out of the cycle?
   //TODO: (λx.(λy.x))(λx.x)(λx.xx) reduces in two reductions to (λx.x)
   //TODO: (λx.(λy.x))((λx.xx)(λx.xx))(λx.x) does not reduce
   //TODO: (λx.(λy.x))(λx.x)((λx.xx)(λx.xx)) reduces to (λx.x), for this left-most redex should be reduced first, Lisp works otherwise, infinite cycle in this case
