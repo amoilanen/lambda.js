@@ -161,11 +161,24 @@ describe('interpreter', () => {
           )
         ),
         '(λx.x)', 'identity applied to identity reduces to identity'
+      ],
+      [
+        new Application(
+          new Func('x',
+            new Application(
+              new Variable('x'),
+              new Variable('y')
+            )
+          ),
+          new Func('t',
+            new Variable('t')
+          )
+        ),
+        'y', 'several β-reductions'
       ]
     ]);
   });
 
-  //TODO: Several β-reductions: (λx.xy)(λt.t) for example
   //TODO: Several pathes to do β-reduction
   //TODO: (λx.xx)(λx.xx) reduces to itself, does not have a normal form, cycle, how to break out of the cycle?
   //TODO: (λx.(λy.x))(λx.x)(λx.xx) reduces in two reductions to (λx.x)
@@ -176,5 +189,5 @@ describe('interpreter', () => {
   //TODO: Also store the history of evaluation
   //TODO: Variable name overshadows a variable from an enclosing context: α-reduction is needed to rename the variables
   //TODO: Implementation detail: α-reduction to avoid same variable name
-  //TODO: Evaluate f(Yf):  Y-combinator applied to a function, should be a fixed point
+  //TODO: Evaluate f(Yf) one reduction and Yf two reductions:  Y-combinator applied to a function, should reduce to the same term
 });
