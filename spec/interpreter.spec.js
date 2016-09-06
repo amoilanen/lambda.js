@@ -204,7 +204,7 @@ describe('interpreter', () => {
         ),
         'y', 'several pathes to do β-reduction, leftmost redex is reduced first'
       ],
-      /*[
+      [
         new Application(
           new Application(
             new Func('x',
@@ -232,7 +232,7 @@ describe('interpreter', () => {
           )
         ),
         '(λx.x)', 'several pathes to do β-reduction, several β-reductions, leftmost redex is reduced first'
-      ]*/
+      ]
     ]);
   });
 
@@ -259,11 +259,8 @@ describe('interpreter', () => {
     });
   });
 
-  //TODO: (λx.xx)(λx.xx) reduces to itself, does not have a normal form, cycle, how to break out of the cycle?
   //TODO: (λx.(λy.x))((λx.xx)(λx.xx))(λx.x) does not reduce
-
   //TODO: (λx.(λy.x))(λx.x)(λx.xx) reduces in two reductions to (λx.x)
-
   //TODO: Implementation detail: left-most leaf expression is evaluated first?
 
   //TODO: Also store the history of evaluation
