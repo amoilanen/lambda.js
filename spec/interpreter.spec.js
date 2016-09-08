@@ -165,7 +165,7 @@ describe('interpreter', () => {
     ]);
   });
 
-  describe('several potential β-reductions', () => {
+  describe('several β-reductions', () => {
 
     test([
       [
@@ -232,6 +232,27 @@ describe('interpreter', () => {
           )
         ),
         '(λx.x)', 'several pathes to do β-reduction, several β-reductions, leftmost redex is reduced first'
+      ],
+      [
+        new Application(
+          new Application(
+            new Func('x',
+              new Func('y',
+                new Variable('x')
+              )
+            ),
+            new Func('x',
+              new Variable('x')
+            )
+          ),
+          new Func('x',
+            new Application(
+              new Variable('x'),
+              new Variable('x')
+            )
+          )
+        ),
+        '(λx.x)', 'two reductions to identity'
       ]
     ]);
   });
@@ -257,11 +278,42 @@ describe('interpreter', () => {
 
       expect(() => interpreter.eval(expr)).toThrowError(errorMessage);
     });
-  });
 
-  //TODO: (λx.(λy.x))((λx.xx)(λx.xx))(λx.x) does not reduce
-  //TODO: (λx.(λy.x))(λx.x)(λx.xx) reduces in two reductions to (λx.x)
-  //TODO: Implementation detail: left-most leaf expression is evaluated first?
+    describe('several reductions before going into loop', () => {
+
+      it(`should detect`, () => {
+        const expr = new Application(
+          new Application(
+            new Func('x',
+              new Func('y',
+                new Variable('x')
+              )
+            ),
+            new Application(
+              new Func('x',
+                new Application(
+                  new Variable('x'),
+                  new Variable('x')
+                )
+              ),
+              new Func('x',
+                new Application(
+                  new Variable('x'),
+                  new Variable('x')
+                )
+              )
+            )
+          ),
+          new Func('x',
+            new Variable('x')
+          )
+        );
+        const errorMessage = 'Potential infinite loop detected while evaluating (((λx.(λy.x))((λx.(xx))(λx.(xx))))(λx.x)), aborting...';
+
+        expect(() => interpreter.eval(expr)).toThrowError(errorMessage);
+      });
+    });
+  });
 
   //TODO: Also store the history of evaluation
   //TODO: Variable name overshadows a variable from an enclosing context: α-reduction is needed to rename the variables
