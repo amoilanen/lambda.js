@@ -333,6 +333,20 @@ describe('interpreter', () => {
           new Variable('x')
         ),
         '(λt.xt)', 'same variable is both free and bound'
+      ],
+      [
+        new Application(
+          new Func('x',
+            new Application(
+              new Variable('x'),
+              new Func('x',
+                new Variable('x')
+              )
+            )
+          ),
+          new Variable('y')
+        ),
+        'y(λx.x)', 'function argument is both free and bound in a function body'
       ]
     ])
   });
