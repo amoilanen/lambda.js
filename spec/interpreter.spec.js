@@ -315,8 +315,28 @@ describe('interpreter', () => {
     });
   });
 
-  //TODO: Also store the history of evaluation
   //TODO: Variable name overshadows a variable from an enclosing context: α-reduction is needed to rename the variables
   //TODO: Implementation detail: α-reduction to avoid same variable name
+  describe('α-reduction, ensuring freedome of substitution', () => {
+
+    test([
+      [
+        new Application(
+          new Func('y',
+            new Func('x',
+              new Application(
+                new Variable('y'),
+                new Variable('x')
+              )
+            )
+          ),
+          new Variable('x')
+        ),
+        '(λt.xt)', 'same variable is both free and bound'
+      ]
+    ])
+  });
+
+  //TODO: Also store the history of evaluation
   //TODO: Evaluate f(Yf) one reduction and Yf two reductions:  Y-combinator applied to a function, should reduce to the same term
 });
