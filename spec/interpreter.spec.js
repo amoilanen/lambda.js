@@ -332,7 +332,7 @@ describe('interpreter', () => {
           ),
           new Variable('x')
         ),
-        '(λt.xt)', 'same variable is both free and bound'
+        '(λt_0.(xt_0))', 'same variable is both free and bound' //(λy.(λx.yx))x
       ],
       [
         new Application(
@@ -346,9 +346,11 @@ describe('interpreter', () => {
           ),
           new Variable('y')
         ),
-        'y(λx.x)', 'function argument is both free and bound in a function body'
+        '(y(λt_0.t_0))', 'function argument is both free and bound in a function body' //(λx.x(λx.x))y
       ]
-    ])
+    ]);
+
+    //TODO: Several variables are renamed in a single expression at the same time
   });
 
   //TODO: Also store the history of evaluation
