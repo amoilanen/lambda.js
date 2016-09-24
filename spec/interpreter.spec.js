@@ -347,10 +347,23 @@ describe('interpreter', () => {
           new Variable('y')
         ),
         '(y(λt_0.t_0))', 'function argument is both free and bound in a function body' //(λx.x(λx.x))y
+      ],
+      [
+        new Application(
+          new Func('x',
+            new Func('x',
+              new Func('x',
+                new Func('x',
+                  new Variable('x')
+                )
+              )
+            )
+          ),
+          new Variable('y')
+        ),
+        '(λt_0.(λt_1.(λt_2.t_2)))', 'variable is rebound in a chain of nested functions' //(λx.(λx.(λx.(λx.x))))y
       ]
     ]);
-
-    //TODO: Several variables are renamed in a single expression at the same time
   });
 
   //TODO: Also store the history of evaluation
