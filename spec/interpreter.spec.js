@@ -315,8 +315,6 @@ describe('interpreter', () => {
     });
   });
 
-  //TODO: Variable name overshadows a variable from an enclosing context: α-reduction is needed to rename the variables
-  //TODO: Implementation detail: α-reduction to avoid same variable name
   describe('α-reduction, ensuring freedome of substitution', () => {
 
     test([
@@ -362,6 +360,25 @@ describe('interpreter', () => {
           new Variable('y')
         ),
         '(λt_0.(λt_1.(λt_2.t_2)))', 'variable is rebound in a chain of nested functions' //(λx.(λx.(λx.(λx.x))))y
+      ],
+      [
+        new Application(
+          new Func('y',
+            new Func('x',
+              new Application(
+                new Variable('x'),
+                new Variable('y')
+              )
+            )
+          ),
+          new Func('z',
+            new Application(
+              new Variable('z'),
+              new Variable('x')
+            )
+          )
+        ),
+        '(λt_0.t_0((λz.(zx))))', 'same variable is both free in a function and bound in another function ' //(λy.(λx.xy))(λz.zx)
       ]
     ]);
   });
