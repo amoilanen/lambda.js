@@ -361,7 +361,7 @@ describe('interpreter', () => {
         ),
         '(λt_0.(λt_1.(λt_2.t_2)))', 'variable is rebound in a chain of nested functions' //(λx.(λx.(λx.(λx.x))))y
       ],
-      [
+      /*[
         new Application(
           new Func('y',
             new Func('x',
@@ -379,10 +379,64 @@ describe('interpreter', () => {
           )
         ),
         '(λt_0.t_0((λz.(zx))))', 'same variable is both free in a function and bound in another function ' //(λy.(λx.xy))(λz.zx)
-      ]
+      ]*/
     ]);
+
+    describe('free variables', () => {
+      const test = (fixtures) =>
+        fixtures.forEach(([term, expected, comment = '']) => {
+          it(`should computer free variables for ${term} ${comment}`, () => {
+            expect(term.getFreeVariables()).toEqual(expected);
+          });
+        })
+
+      test([
+        [
+          new Variable('x'),
+          ['x'], 'single variable is free'
+        ],
+        [
+          new Application(
+            new Variable('x'),
+            new Variable('y')
+          ),
+          ['x', 'y'], 'free variables in an application is a union of free variables'
+        ],
+        [
+          new Application(
+            new Variable('x'),
+            new Variable('x')
+          ),
+          ['x'], 'free variables are unique'
+        ],
+        [
+          new Func('x',
+            new Application(
+              new Variable('x'),
+              new Variable('y')
+            )
+          ),
+          ['y'], 'free variables of a function are free variables of the body without argument'
+        ],
+        [
+          new Application(
+            new Func('x',
+              new Application(
+                new Func('y',
+                  new Variable('t')
+                ),
+                new Variable('x')
+              )
+            ),
+            new Variable('z')
+          ),
+          ['t', 'z'], 'complex expression'
+        ],
+      ]);
+    });
   });
 
   //TODO: Also store the history of evaluation
   //TODO: Evaluate f(Yf) one reduction and Yf two reductions:  Y-combinator applied to a function, should reduce to the same term
+  //TODO: Split the lambda implementation into files/classes/folders
 });
