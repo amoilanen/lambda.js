@@ -361,7 +361,7 @@ describe('interpreter', () => {
         ),
         '(λt_0.(λt_1.(λt_2.t_2)))', 'variable is rebound in a chain of nested functions' //(λx.(λx.(λx.(λx.x))))y
       ],
-      /*[
+      [
         new Application(
           new Func('y',
             new Func('x',
@@ -378,8 +378,8 @@ describe('interpreter', () => {
             )
           )
         ),
-        '(λt_0.t_0((λz.(zx))))', 'same variable is both free in a function and bound in another function ' //(λy.(λx.xy))(λz.zx)
-      ]*/
+        '(λt_0.(t_0(λz.(zx))))', 'same variable is both free in a function and bound in another function ' //(λy.(λx.xy))(λz.zx)
+      ]
     ]);
 
     describe('free variables', () => {
