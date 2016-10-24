@@ -1,4 +1,4 @@
-import { lambda } from './lib/lambda'
+import { lambda } from 'lambda'
 
 describe('lambda calculus', () => {
 

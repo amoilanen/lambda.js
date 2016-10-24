@@ -1,23 +1,38 @@
+var path = require('path');
+
 module.exports = function(config) {
 
   var configuration = {
-   basePath: '.',
-   frameworks: ['jasmine'],
-   files: [
-     'lib/**/*.js',
-     'spec/**/*.js'
-   ],
+    basePath: '.',
+    frameworks: ['jasmine'],
+    files: [
+      'spec/index.js'
+    ],
     preprocessors: {
-      'lib/**/*.js': ['babel'],
-      'spec/**/*.js': ['babel']
+      'spec/index.js': ['webpack', 'sourcemap']
     },
     browsers: ['PhantomJS'],
     reporters: ['spec'],
     singleRun: true,
-    babelPreprocessor: {
-      options: {
-        presets: ['es2015'],
-        sourceMap: 'inline'
+    webpack: {
+      devtool: 'inline-source-map',
+      resolve: {
+        root: [
+          path.resolve('./lib'),
+          path.resolve('./spec')
+        ]
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel',
+            query: {
+              presets: ['es2015']
+            }
+          }
+        ]
       }
     }
   };

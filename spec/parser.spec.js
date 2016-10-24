@@ -1,4 +1,7 @@
-import { Parser, Variable, Func, Application } from './lib/lambda'
+import { Parser } from 'lambda'
+import { Variable } from 'terms/variable'
+import { Func } from 'terms/function'
+import { Application } from 'terms/application'
 
 describe('parser', () => {
 

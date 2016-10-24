@@ -1,4 +1,7 @@
-import { Interpreter, Variable, Func, Application } from './lib/lambda'
+import { Interpreter } from 'lambda'
+import { Variable } from 'terms/variable'
+import { Func } from 'terms/function'
+import { Application } from 'terms/application'
 
 describe('interpreter', () => {
 
