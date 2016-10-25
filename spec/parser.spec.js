@@ -1,4 +1,4 @@
-import { Parser } from 'lambda'
+import { Parser } from 'parser/parser'
 import { Variable } from 'terms/variable'
 import { Func } from 'terms/function'
 import { Application } from 'terms/application'
