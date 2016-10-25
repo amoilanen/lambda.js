@@ -280,6 +280,7 @@ describe('parser', () => {
     });
   });
 
+  //TODO: Shorthand for nested applications? (λx.(λy.(λz.zyx)))uvw
   //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
   //TODO: Shorthand for nested lambdas, for example λx.(λy.yx) is the same as λxy.yx
 });

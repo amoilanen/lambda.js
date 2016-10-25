@@ -439,6 +439,8 @@ describe('interpreter', () => {
     });
   });
 
+  //TODO: '((λx.x)y)((λx.x)z)'  should be evaluated to the end?
+
   //TODO: Also store the history of evaluation
   //TODO: Evaluate f(Yf) one reduction and Yf two reductions:  Y-combinator applied to a function, should reduce to the same term
   //TODO: Split the lambda implementation into files/classes/folders

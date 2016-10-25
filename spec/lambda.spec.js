@@ -11,22 +11,24 @@ describe('lambda calculus', () => {
   });
 
   it('should evaluate application', () => {
-    expect(lambda.eval('(λx.xx)1')).toEqual('11');
+    expect(lambda.eval('(λx.xx)y')).toEqual('(yy)');
   });
 
-  xdescribe('several applications', () => {
+  it('should evaluate several applications', () => {
+    expect(lambda.eval('((λx.(xz))(λt.tt))')).toEqual('(zz)');
   });
 
-  xdescribe('nested applications', () => {
+  it('should evaludate nested applications', () => {
+    expect(lambda.eval('((((λx.(λy.(λz.zyx)))u)v)w)')).toEqual('(w(vu))');
   });
 
-  xdescribe('normal form still contains applications', () => {
+  it('normal form still containing applications evaluates to itself', () => {
+    expect(lambda.eval('(z(λx.(x(λy.(xy)))))')).toEqual('(z(λx.(x(λy.(xy)))))');
   });
 
-  xdescribe('body contains functions with bound variables with the same name', () => {
+  it('should evaluate body containing functions with bound variables with the same name as free variables', () => {
+    expect(lambda.eval('(λx.yx)x')).toEqual('(yx)');
   });
-
-  //(λx.(λy.(λz.zyx))123 -> 321
 });
 
 //TODO: Add option to generate JavaScript from the parsed lambda expression tree, i.e. compile to JavaScript, not just interpret
