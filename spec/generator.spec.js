@@ -22,9 +22,7 @@ describe('generator', () => {
     test([
       [
         new Variable('x'),
-`function(x) {
-  return x;
-}`,
+`x`,
         'variable'
       ],
       [
