@@ -281,6 +281,11 @@ describe('parser', () => {
   });
 
   //TODO: Shorthand for nested applications? (λx.(λy.(λz.zyx)))uvw
-  //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
   //TODO: Shorthand for nested lambdas, for example λx.(λy.yx) is the same as λxy.yx
+
+  //TODO: Be able to omit the parenthesis around a function body? (λx.x(λy.xy)) should be parsed
+  //TODO: Be able to omit the parenthesis around the root term λx.x
+
+  //TODO: Ability to use numbers as variable names?
+  //TODO: Multiple symbol variables, always start with _ and end with _, for example λ_longx_._longx_
 });
