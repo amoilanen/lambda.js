@@ -67,9 +67,9 @@ describe('generator', () => {
         ),
 `function(f) {
   return (function(x) {
-    return (f)((x)(x));
+    return f(x(x));
   })(function(x) {
-    return (f)((x)(x));
+    return f(x(x));
   });
 }`,
         'Y-combinator'
