@@ -30,5 +30,3 @@ describe('lambda calculus', () => {
     expect(lambda.eval('(λx.yx)x')).toEqual('(yx)');
   });
 });
-
-//TODO: Add option to generate JavaScript from the parsed lambda expression tree, i.e. compile to JavaScript, not just interpret

@@ -443,5 +443,5 @@ describe('interpreter', () => {
 
   //TODO: Also store the history of evaluation
   //TODO: Evaluate f(Yf) one reduction and Yf two reductions:  Y-combinator applied to a function, should reduce to the same term
-  //TODO: Split the lambda implementation into files/classes/folders
+  //Re-factor the interpreter to use visitors?
 });

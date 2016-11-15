@@ -9,7 +9,8 @@ module.exports = {
   },
   output: {
     path: "dist",
-    filename: "lambda.js"
+    filename: "lambda.js",
+    libraryTarget: "umd"
   },
   module: {
     loaders: [

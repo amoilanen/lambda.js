@@ -4,7 +4,7 @@
   "description": "Lambda calculus interpreter, implementation of a minimal functional language",
   "main": "lambda.js",
   "scripts": {
-    "build": "babel lib -d dist",
+    "build": "webpack",
     "test": "karma start karma.conf.js",
     "test:tdd": "karma start karma.conf.js --tdd"
   },
@@ -41,5 +41,8 @@
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.8.0",
     "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "commander": "^2.9.0"
   }
 }

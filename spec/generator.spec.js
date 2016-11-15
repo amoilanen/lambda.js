@@ -79,3 +79,4 @@ describe('generator', () => {
 });
 
 //TODO: Turing fixed point combinator Θ = (λxy.y((xx)y))(λxy.y((xx)y))
+//TODO: What if an application contains a lambda? Is it formatted properly?
